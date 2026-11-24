@@ -1,0 +1,396 @@
+/* wp-field — inspector controls */
+
+.wp-field-image {
+	display: grid;
+	gap: 8px;
+}
+.wp-field-image__preview {
+	padding: 0;
+	border: 1px solid #ddd;
+	border-radius: 2px;
+	background: #f0f0f0;
+	cursor: pointer;
+	display: block;
+	width: 100%;
+}
+.wp-field-image__preview img {
+	display: block;
+	width: 100%;
+	max-height: 160px;
+	object-fit: contain;
+}
+.wp-field-image__actions {
+	display: flex;
+	gap: 8px;
+}
+
+.wp-field-link .block-editor-link-control {
+	min-width: 0;
+	width: 100%;
+}
+.wp-field-link .block-editor-link-control__search-input-wrapper,
+.wp-field-link .block-editor-link-control__field {
+	margin-inline: 0;
+}
+
+.wp-field-link .block-editor-link-control__search-input-container,
+.wp-field-link .block-editor-link-control__search-input {
+	min-width: 0;
+}
+
+.wp-field-wysiwyg {
+	width: 100%;
+}
+
+/* post, relationship, term(s), user(s): a field box; a click on it opens the search */
+.wp-field-relation {
+	min-height: 40px;
+	border: 1px solid #949494;
+	border-radius: 2px;
+	background: #fff;
+}
+.wp-field-relation.can-add {
+	cursor: pointer;
+}
+.wp-field-relation:focus {
+	outline: none;
+}
+.wp-field-relation:focus-within {
+	border-color: var(--wp-admin-theme-color, #3858e9);
+	box-shadow: 0 0 0 0.5px var(--wp-admin-theme-color, #3858e9);
+}
+.wp-field-relation ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+/* the admin stylesheet gives every li a 6px bottom margin */
+.wp-field-relation li {
+	margin: 0;
+}
+.wp-field-relation__selected li,
+.wp-field-relation__results button {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	min-height: 32px;
+}
+.wp-field-relation__selected li {
+	/* height of the field (40px minus its borders): one row fills an empty field exactly */
+	min-height: 38px;
+	padding-left: 8px;
+	border-bottom: 1px solid #eee;
+}
+.wp-field-relation__title {
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.wp-field-relation__type {
+	font-size: 11px;
+	color: #757575;
+}
+.wp-field-relation__selected:last-child li:last-child {
+	border-bottom: 0;
+}
+.wp-field-relation__search {
+	display: grid;
+	gap: 4px;
+	padding: 8px;
+	cursor: default;
+}
+.wp-field-relation__results {
+	max-height: 200px;
+	overflow-y: auto;
+	border: 1px solid #ddd;
+}
+.wp-field-relation__results li.is-empty {
+	padding: 8px;
+	color: #757575;
+}
+.wp-field-relation__results button {
+	width: 100%;
+	padding: 4px 8px;
+	border: 0;
+	background: none;
+	text-align: left;
+	cursor: pointer;
+}
+.wp-field-relation__results button:hover,
+.wp-field-relation__results button:focus {
+	background: #f0f0f0;
+}
+
+/* visual separation between fields */
+.wp-field-list > * + * {
+	border-top: 1px solid #e0e0e0;
+	padding-top: 16px;
+}
+
+/* expanded view: wide panel on the right, full height */
+.wp-field-expanded-overlay {
+	justify-content: flex-end;
+	align-items: stretch;
+}
+.components-modal__frame.wp-field-expanded {
+	width: min(800px, 100%);
+	max-width: 100%;
+	height: 100%;
+	max-height: 100%;
+	margin: 0;
+	border-radius: 0;
+	/* the absolute header is positioned against the frame (otherwise against the whole screen) */
+	position: relative;
+	animation: wp-field-slide-in 0.15s ease-out;
+}
+.wp-field-expanded .components-modal__header {
+	border-bottom: 1px solid #e0e0e0;
+}
+.wp-field-expanded .components-modal__content {
+	padding-top: 24px;
+}
+.wp-field-expanded .wp-field-wysiwyg + .mce-tinymce iframe,
+.wp-field-expanded .mce-edit-area iframe {
+	min-height: 300px;
+}
+@keyframes wp-field-slide-in {
+	from {
+		transform: translateX(40px);
+		opacity: 0;
+	}
+	to {
+		transform: none;
+		opacity: 1;
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.components-modal__frame.wp-field-expanded {
+		animation: none;
+	}
+}
+.wp-field-expand {
+	margin-bottom: 16px;
+}
+.wp-field-expanded-notice {
+	margin: 0;
+	color: #757575;
+}
+
+.wp-field-gallery,
+.wp-field-file {
+	display: grid;
+	gap: 8px;
+}
+.wp-field-gallery__list {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+	gap: 4px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.wp-field-gallery__list li {
+	position: relative;
+	margin: 0;
+	aspect-ratio: 1;
+	background: #f0f0f0;
+}
+.wp-field-gallery__list img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+.wp-field-gallery__remove.components-button {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	min-width: 0;
+	height: 20px;
+	padding: 0;
+	background: #fff;
+	opacity: 0;
+}
+.wp-field-gallery__list li:hover .wp-field-gallery__remove,
+.wp-field-gallery__remove:focus {
+	opacity: 1;
+}
+.wp-field-gallery__actions,
+.wp-field-file__actions {
+	display: flex;
+	gap: 8px;
+}
+.wp-field-gallery__max {
+	margin: 0;
+	color: #757575;
+}
+.wp-field-file__current {
+	display: grid;
+	gap: 2px;
+	padding: 8px;
+	border: 1px solid #ddd;
+	overflow-wrap: anywhere;
+}
+.wp-field-file__details {
+	font-size: 11px;
+	color: #757575;
+}
+
+/* options pages */
+.wp-field-options {
+	max-width: 800px;
+}
+.wp-field-options h1 {
+	margin-bottom: 16px;
+}
+.wp-field-options .components-notice {
+	margin: 0 0 16px;
+}
+.wp-field-options__panel {
+	margin-bottom: 16px;
+}
+.wp-field-options__panel h2 {
+	margin: 0;
+	font-size: 14px;
+}
+.wp-field-options__actions {
+	position: sticky;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 12px 0;
+	background: #f0f0f1;
+}
+.wp-field-options__dirty {
+	color: #757575;
+}
+
+/* expanded view: one tab per group (vpGroup) */
+.wp-field-tab {
+	padding-top: 24px;
+}
+.wp-field-options__tabs .components-tab-panel__tabs {
+	margin-bottom: 16px;
+	border-bottom: 1px solid #ddd;
+}
+
+/* options page, vertical tabs: tabs in a column, on the left of the fields from 783px */
+.wp-field-options__tabs.is-vertical .components-tab-panel__tabs {
+	flex-direction: column;
+	margin: 0 0 16px;
+	border: 1px solid #ddd;
+	border-radius: 2px;
+	background: #fff;
+}
+.wp-field-options__tabs.is-vertical .components-tab-panel__tabs-item {
+	justify-content: flex-start;
+	height: auto;
+	padding: 12px 16px;
+	text-align: left;
+	white-space: normal;
+}
+.wp-field-options__tabs.is-vertical .components-tab-panel__tabs-item.is-active {
+	box-shadow: inset 3px 0 0 var(--wp-admin-theme-color, #3858e9);
+	font-weight: 600;
+}
+@media (min-width: 783px) {
+	.wp-field-options__tabs.is-vertical {
+		display: grid;
+		grid-template-columns: 200px minmax(0, 1fr);
+		gap: 16px;
+		align-items: start;
+	}
+	.wp-field-options__tabs.is-vertical .components-tab-panel__tabs {
+		position: sticky;
+		top: 48px;
+		margin: 0;
+	}
+	.wp-field-options:has(.is-vertical) {
+		max-width: 1016px;
+	}
+}
+
+/* isValid.required (DataForm): empty required field */
+.wp-field-required {
+	margin: 4px 0 0;
+	color: #cc1818;
+	font-size: 12px;
+}
+
+/* oembed: preview at the width of the field */
+.wp-field-oembed {
+	display: grid;
+	gap: 8px;
+}
+.wp-field-oembed__preview iframe {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 16 / 9;
+}
+
+/* term and user screens (classic forms) */
+.wp-field-form {
+	max-width: 800px;
+	margin: 16px 0;
+}
+#addtag .wp-field-form {
+	margin-top: 0;
+}
+
+/* repeater: one collapsible box per row */
+.wp-field-repeater {
+	display: grid;
+	gap: 8px;
+	justify-items: start;
+}
+.wp-field-repeater__row {
+	width: 100%;
+	border: 1px solid #ddd;
+	border-radius: 2px;
+	background: #fff;
+}
+.wp-field-repeater__header {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	padding-right: 4px;
+}
+.wp-field-repeater__title {
+	display: flex;
+	flex: 1;
+	align-items: center;
+	gap: 4px;
+	min-width: 0;
+	padding: 8px;
+	border: 0;
+	background: none;
+	text-align: left;
+	font-weight: 500;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	cursor: pointer;
+}
+.wp-field-repeater__row.is-open > .wp-field-repeater__header {
+	border-bottom: 1px solid #ddd;
+}
+.wp-field-repeater__body {
+	padding: 12px;
+}
+
+/* options pages: language status of a translatable field */
+.wp-field-language {
+	margin: 4px 0 0;
+	font-size: 12px;
+	color: #757575;
+}
+.wp-field-language.is-own {
+	color: #1e1e1e;
+}
+.wp-field-language .components-button.is-link {
+	font-size: 12px;
+}

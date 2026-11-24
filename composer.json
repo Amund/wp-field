@@ -1,0 +1,10 @@
+{
+    "name": "amund/wp-field",
+    "type": "wordpress-muplugin",
+    "description": "Fields for native PHP blocks and post meta, declared in code and edited in the block editor.",
+    "homepage": "https://github.com/Amund/wp-field",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.1"
+    }
+}
